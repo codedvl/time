@@ -11,27 +11,26 @@
 
 export default {
   name: "Time",
-  props: {},
-  data: function() {
+  props: {
+    
+  },
+  data() {
     return {
       isAuthenticated: false
     }
   },
-  computed: {
-    // isSignedIn () {
-    //   return this.$isAuthenticated()
-    // }
-  },
   methods: {
     login () {
       if (this.$isAuthenticated() !== true) {
-        this.$login();
-        this.isAuthenticated = this.$isAuthenticated();
+        this.$login().then(() => {
+          this.isAuthenticated = true;
+        });
       }
     },
     logout () {
-      this.$logout();
-      this.isAuthenticated = this.$isAuthenticated();
+      this.$logout().then(() => {
+        this.isAuthenticated = false;
+      });
     }
   },
   created: function() {
