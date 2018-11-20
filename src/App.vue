@@ -8,8 +8,10 @@
 <script>
 import Vue from "vue";
 import VueGAPI from "vue-gapi";
+import TimeStore from './stores/time-store';
 import Auth from "./components/Auth.vue";
 import Time from "./components/Time.vue";
+
 
 const apiConfig = {
   apiKey: "AIzaSyC9hnF1r533j1gZsfXIJHmtT7MbsSd71TY",
