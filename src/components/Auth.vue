@@ -11,7 +11,16 @@ export default {
   name: "Auth",
   data() {
     return {
-      isAuthenticated: false
+    }
+  },
+  computed: {
+    isAuthenticated: {
+      get: function () {
+        return this.$store.getters.getAuthenticationState();
+      },
+      set: function (authState) {
+        this.$store.commit('setAuthenticationState', authState);
+      }
     }
   },
   methods: {
@@ -28,9 +37,6 @@ export default {
       });
     }
   },
-  created: function() {
-    this.isAuthenticated = this.$isAuthenticated();
-  }
 };
 
 </script>

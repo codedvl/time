@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Auth />
-    <Time />
+    <Time v-if="isAuthenticated" />
   </div>
 </template>
 
@@ -25,9 +25,23 @@ Vue.use(VueGAPI, apiConfig);
 
 export default {
   name: "app",
+  store: TimeStore(),
   components: {
     Auth,
     Time
+  },
+  computed: {
+    isAuthenticated: {
+      get: function () {
+        return this.$store.getters.getAuthenticationState();
+      },
+      set: function (authState) {
+        this.$store.commit('setAuthenticationState', authState);
+      }
+    }
+  },
+  created: function() {
+    this.isAuthenticated = this.$isAuthenticated();
   }
 };
 </script>
