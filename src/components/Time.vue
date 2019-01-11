@@ -1,7 +1,14 @@
 <template>
-  <h1>
-    {{ year.name }}
-  </h1>
+  <div>
+    <h1>
+    {{year.name}}
+    </h1>
+    <ul id="example-1">
+      <li v-for="month in year.months">
+        {{ month.name }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -12,7 +19,7 @@ export default {
     return {
       year: {
         name: { type: String },
-        month: [{
+        months: [{
           name: { type: String },
           days: [{
             date: { type: String },
@@ -22,38 +29,47 @@ export default {
             possibleEarning: { type: Number }
           }],
         }]
-      }
+      },
+      gapiObject: {}
     }
   },
   methods: {
-    test () {
-      const self = this;
-
+    GetSheetData() {
+      // year.months = [];
       this.$getGapiClient()
         .then(gapi => {
           gapi.client.sheets.spreadsheets.values.get({
             spreadsheetId: '137o26C7nPbbNln0V0vXm_CUoMFD-dNgTYG-2PC1Lsio',
             range: '2018!A3:AF97',
-          }).then(function(response) {
-            self.year.name = '2018';
-            response.result.values.forEach(element => {
-              
-            });
+          }).then(response => {
+            console.log(response);
+            this.gapiObject = response.re;
+            // self.year.name = '2018';
+            // for (var i = 0; i < response.result.values.length; i = i + 8) {
+            //   self.year.months.push({ name: response.result.values[i][0]});
+            // }
+            // console.log(self.year.months);
             // create new month object and populate it
-            
-
-
-
-
-            console.log(response);
-          }, function(response) {
-            console.log(response);
-          });
         });
+      });
+    },
+    PopulateYear() {
+      this.year.name = '2018';
+    },
+    PopulateMoths() {
+      // for (var i = 0; i < this.gapiObject.result.values.length; i = i + 8) {
+        
+      // }
+      //console.log(this.gapiObject.value);
+      // this.gapiObject.result.values.forEach((element, index) => {
+      //   console.log(element);
+      // })
     }
   },
   created: function() {
-    this.test();
+    this.GetSheetData();
+    this.PopulateYear();
+    this.PopulateMoths();
   }
 };
 
