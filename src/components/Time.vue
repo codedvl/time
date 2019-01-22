@@ -42,8 +42,9 @@ export default {
             spreadsheetId: '137o26C7nPbbNln0V0vXm_CUoMFD-dNgTYG-2PC1Lsio',
             range: '2018!A3:AF97',
           }).then(response => {
-            console.log(response);
-            this.gapiObject = response.re;
+            //console.log(response.result.values);
+            this.gapiObject = response.result.values;
+            //console.log(this.gapiObject);
             // self.year.name = '2018';
             // for (var i = 0; i < response.result.values.length; i = i + 8) {
             //   self.year.months.push({ name: response.result.values[i][0]});
@@ -56,12 +57,12 @@ export default {
     PopulateYear() {
       this.year.name = '2018';
     },
-    PopulateMoths() {
+    PopulateMonths() {
       // for (var i = 0; i < this.gapiObject.result.values.length; i = i + 8) {
         
       // }
-      //console.log(this.gapiObject.value);
-      // this.gapiObject.result.values.forEach((element, index) => {
+      //console.log(this.gapiObject);
+      // this.gapiObject.values.forEach((element, index) => {
       //   console.log(element);
       // })
     }
@@ -69,7 +70,7 @@ export default {
   created: function() {
     this.GetSheetData();
     this.PopulateYear();
-    this.PopulateMoths();
+    this.PopulateMonths();
   }
 };
 
